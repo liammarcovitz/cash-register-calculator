@@ -1,5 +1,5 @@
 # Cash Register Calculator
-[Website](https://liammarcovitz.github.io/cash-register-calculator)
+<a href="https://liammarcovitz.github.io/cash-register-calculator" target="_blank">Website</a>
 
 ## Description
 A sleek, user-friendly cash register calculator web application built with vanilla JavaScript, HTML, and CSS. This application helps users manage and calculate cash denomination totals for two separate registers, with a built-in safety feature that provides recommendations when register totals exceed $200.
