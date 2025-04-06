@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Register Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cash Register Calculator <span class="author-credit">by Liam Marcovitz</span></h1>
+        </header>
+        
+        <main>
+            <div class="register-column" id="register1">
+                <h2>Register 1</h2>
+                <div class="denomination-container">
+                    <div class="denomination-row">
+                        <label for="r1-100">$100.00</label>
+                        <input type="number" id="r1-100" class="denomination-input" data-value="100" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-50">$50.00</label>
+                        <input type="number" id="r1-50" class="denomination-input" data-value="50" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-20">$20.00</label>
+                        <input type="number" id="r1-20" class="denomination-input" data-value="20" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-10">$10.00</label>
+                        <input type="number" id="r1-10" class="denomination-input" data-value="10" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-5">$5.00</label>
+                        <input type="number" id="r1-5" class="denomination-input" data-value="5" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-1">$1.00</label>
+                        <input type="number" id="r1-1" class="denomination-input" data-value="1" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-025">$0.25</label>
+                        <input type="number" id="r1-025" class="denomination-input" data-value="0.25" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-010">$0.10</label>
+                        <input type="number" id="r1-010" class="denomination-input" data-value="0.10" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-005">$0.05</label>
+                        <input type="number" id="r1-005" class="denomination-input" data-value="0.05" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r1-001">$0.01</label>
+                        <input type="number" id="r1-001" class="denomination-input" data-value="0.01" min="0">
+                    </div>
+                </div>
+                <button class="calculate-btn" onclick="calculateRegister(1)">Calculate</button>
+                <div class="result">
+                    <p>Total: <span id="total-r1">$0.00</span></p>
+                    <div id="adjustment-r1" class="adjustment-message"></div>
+                </div>
+            </div>
+            
+            <div class="register-column" id="register2">
+                <h2>Register 2</h2>
+                <div class="denomination-container">
+                    <div class="denomination-row">
+                        <label for="r2-100">$100.00</label>
+                        <input type="number" id="r2-100" class="denomination-input" data-value="100" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-50">$50.00</label>
+                        <input type="number" id="r2-50" class="denomination-input" data-value="50" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-20">$20.00</label>
+                        <input type="number" id="r2-20" class="denomination-input" data-value="20" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-10">$10.00</label>
+                        <input type="number" id="r2-10" class="denomination-input" data-value="10" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-5">$5.00</label>
+                        <input type="number" id="r2-5" class="denomination-input" data-value="5" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-1">$1.00</label>
+                        <input type="number" id="r2-1" class="denomination-input" data-value="1" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-025">$0.25</label>
+                        <input type="number" id="r2-025" class="denomination-input" data-value="0.25" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-010">$0.10</label>
+                        <input type="number" id="r2-010" class="denomination-input" data-value="0.10" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-005">$0.05</label>
+                        <input type="number" id="r2-005" class="denomination-input" data-value="0.05" min="0">
+                    </div>
+                    <div class="denomination-row">
+                        <label for="r2-001">$0.01</label>
+                        <input type="number" id="r2-001" class="denomination-input" data-value="0.01" min="0">
+                    </div>
+                </div>
+                <button class="calculate-btn" onclick="calculateRegister(2)">Calculate</button>
+                <div class="result">
+                    <p>Total: <span id="total-r2">$0.00</span></p>
+                    <div id="adjustment-r2" class="adjustment-message"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
