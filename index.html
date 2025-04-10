@@ -10,7 +10,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>Cash Register Calculator <span class="author-credit">by Liam Marcovitz</span></h1>
+            <div class="header-content">
+                <h1>Cash Register Calculator <span class="author-credit">by Liam Marcovitz</span></h1>
+            </div>
+            <div class="utility-buttons">
+                <button id="theme-toggle" class="action-btn" title="Toggle Light/Dark Mode">☀️</button>
+                <button id="print-btn" class="action-btn" title="Print Report">🖨️</button>
+            </div>
         </header>
         
         <main>
@@ -58,7 +64,14 @@
                         <input type="number" id="r1-001" class="denomination-input" data-value="0.01" min="0">
                     </div>
                 </div>
+                
                 <button class="calculate-btn" onclick="calculateRegister(1)">Calculate</button>
+                
+                <div class="button-row">
+                    <button class="action-btn" onclick="resetRegister(1)" title="Reset Register">Reset 🔄</button>
+                    <button class="action-btn" onclick="copyToClipboard(1)" title="Copy to Clipboard">Copy 📋</button>
+                </div>
+                
                 <div class="result">
                     <p>Total: <span id="total-r1">$0.00</span></p>
                     <div id="adjustment-r1" class="adjustment-message"></div>
@@ -109,7 +122,14 @@
                         <input type="number" id="r2-001" class="denomination-input" data-value="0.01" min="0">
                     </div>
                 </div>
+                
                 <button class="calculate-btn" onclick="calculateRegister(2)">Calculate</button>
+                
+                <div class="button-row">
+                    <button class="action-btn" onclick="resetRegister(2)" title="Reset Register">Reset 🔄</button>
+                    <button class="action-btn" onclick="copyToClipboard(2)" title="Copy to Clipboard">Copy 📋</button>
+                </div>
+                
                 <div class="result">
                     <p>Total: <span id="total-r2">$0.00</span></p>
                     <div id="adjustment-r2" class="adjustment-message"></div>

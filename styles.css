@@ -1,4 +1,3 @@
-/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +8,7 @@
 body {
     background-color: #1a1a1a;
     color: #ffffff;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -17,12 +17,77 @@ body {
     padding: 20px;
 }
 
-/* Header styles */
+body.light-mode {
+    background-color: #f5f5f5;
+    color: #333333;
+}
+
+body.light-mode header {
+    border-bottom: 2px solid #cc0000;
+}
+
+body.light-mode h1 {
+    color: #cc0000;
+}
+
+body.light-mode .register-column {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
+}
+
+body.light-mode h2 {
+    color: #cc0000;
+    border-bottom: 1px solid #cc0000;
+}
+
+body.light-mode label {
+    color: #333333;
+}
+
+body.light-mode .denomination-input {
+    border: 1px solid #cc0000;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+body.light-mode .calculate-btn {
+    background-color: #cc0000;
+}
+
+body.light-mode .calculate-btn:hover {
+    background-color: #990000;
+}
+
+body.light-mode .result {
+    background-color: #f0f0f0;
+    border-left: 4px solid #cc0000;
+}
+
+body.light-mode .adjustment-message {
+    background-color: rgba(204, 0, 0, 0.1);
+}
+
+body.light-mode .action-btn {
+    background-color: #cc0000;
+    color: #ffffff;
+}
+
+body.light-mode .action-btn:hover {
+    background-color: #990000;
+}
+
 header {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
     border-bottom: 2px solid #ff0000;
     padding-bottom: 15px;
+}
+
+.header-content {
+    flex-grow: 1;
+    text-align: center;
 }
 
 h1 {
@@ -39,7 +104,34 @@ h1 {
     font-weight: normal;
 }
 
-/* Main content layout */
+body.light-mode .author-credit {
+    color: #666666;
+}
+
+.utility-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.action-btn:hover {
+    background-color: #cc0000;
+}
+
 main {
     display: flex;
     justify-content: space-between;
@@ -64,7 +156,6 @@ h2 {
     padding-bottom: 10px;
 }
 
-/* Denomination rows styling */
 .denomination-container {
     margin-bottom: 20px;
 }
@@ -98,7 +189,6 @@ label {
     box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
 }
 
-/* Button styling */
 .calculate-btn {
     display: block;
     width: 100%;
@@ -120,7 +210,19 @@ label {
     background-color: #990000;
 }
 
-/* Results section */
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.button-row .action-btn {
+    flex: 1;
+    padding: 10px;
+    height: auto;
+}
+
 .result {
     margin-top: 20px;
     padding: 15px;
@@ -143,7 +245,6 @@ label {
     display: none;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     main {
         flex-direction: column;
@@ -151,5 +252,14 @@ label {
     
     .register-column {
         margin-bottom: 30px;
+    }
+    
+    .utility-buttons {
+        margin-top: 15px;
+        justify-content: center;
+    }
+    
+    header {
+        flex-direction: column;
     }
 }

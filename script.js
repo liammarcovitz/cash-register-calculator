@@ -1,61 +1,64 @@
-// Denominations in dollars for reference
 const denominations = [100, 50, 20, 10, 5, 1, 0.25, 0.10, 0.05, 0.01];
 
-// Calculate register totals based on register number
+const denominationToId = {
+    100: "100",
+    50: "50",
+    20: "20",
+    10: "10",
+    5: "5",
+    1: "1",
+    0.25: "025",
+    0.10: "010",
+    0.05: "005",
+    0.01: "001"
+};
+
+let isDarkMode = true;
+
 function calculateRegister(registerNum) {
     const inputPrefix = `r${registerNum}-`;
     const totalElement = document.getElementById(`total-r${registerNum}`);
     const adjustmentElement = document.getElementById(`adjustment-r${registerNum}`);
     
-    // Initialize totals
     let total = 0;
     const denominationCounts = {};
     
-    // Calculate total by iterating through each denomination
     denominations.forEach(denomValue => {
-        // Convert denomValue to input ID format
-        let inputId = denomValue.toString().replace('.', '');
-        if (denomValue < 1) {
-            inputId = `0${inputId}`;
-        }
+        const inputIdSuffix = denominationToId[denomValue];
+        const inputId = `${inputPrefix}${inputIdSuffix}`;
         
-        const input = document.getElementById(`${inputPrefix}${inputId}`);
-        if (!input) return;
+        const input = document.getElementById(inputId);
+        if (!input) {
+            console.error(`Input not found: ${inputId}`);
+            return;
+        }
         
         const count = parseInt(input.value) || 0;
         const value = denomValue * count;
         
-        // Store count for potential adjustment calculation
         denominationCounts[denomValue] = count;
         
-        // Add to total
         total += value;
     });
     
-    // Format and display total
     totalElement.textContent = formatCurrency(total);
     
-    // Check if adjustment is needed (total > 200)
     if (total > 200) {
         const adjustmentInfo = calculateAdjustment(total - 200, denominationCounts);
         displayAdjustmentMessage(adjustmentElement, adjustmentInfo);
     } else {
-        // Hide adjustment message if no adjustment needed
         adjustmentElement.style.display = 'none';
     }
 }
 
-// Calculate how to remove money to get to $200 max
 function calculateAdjustment(excessAmount, denominationCounts) {
     const adjustmentCounts = {};
     let remainingExcess = excessAmount;
     
-    // Try to remove bills starting from highest denomination
     for (const denom of denominations) {
         const availableCount = denominationCounts[denom] || 0;
         
         if (availableCount > 0 && remainingExcess >= denom) {
-            // Calculate how many bills/coins of this denomination to remove
             const countToRemove = Math.min(
                 availableCount, 
                 Math.floor(remainingExcess / denom)
@@ -64,7 +67,7 @@ function calculateAdjustment(excessAmount, denominationCounts) {
             if (countToRemove > 0) {
                 adjustmentCounts[denom] = countToRemove;
                 remainingExcess -= denom * countToRemove;
-                remainingExcess = parseFloat(remainingExcess.toFixed(2)); // Fix floating point precision
+                remainingExcess = parseFloat(remainingExcess.toFixed(2));
             }
         }
     }
@@ -76,7 +79,6 @@ function calculateAdjustment(excessAmount, denominationCounts) {
     };
 }
 
-// Display adjustment message to user
 function displayAdjustmentMessage(element, adjustmentInfo) {
     const { adjustmentCounts, remainingExcess, totalExcess } = adjustmentInfo;
     
@@ -85,7 +87,6 @@ function displayAdjustmentMessage(element, adjustmentInfo) {
     
     let hasAdjustments = false;
     
-    // Build message with the bills/coins to remove
     for (const denom of denominations) {
         const count = adjustmentCounts[denom] || 0;
         if (count > 0) {
@@ -94,8 +95,7 @@ function displayAdjustmentMessage(element, adjustmentInfo) {
         }
     }
     
-    // If perfect adjustment isn't possible
-    if (remainingExcess > 0.001) { // Small threshold for floating point errors
+    if (remainingExcess > 0.001) {
         message += `<br>Note: After these adjustments, you'll still be over by ${formatCurrency(remainingExcess)}. `;
         message += `Consider adjusting smaller denominations manually.`;
     } else if (!hasAdjustments) {
@@ -103,12 +103,10 @@ function displayAdjustmentMessage(element, adjustmentInfo) {
         message += "Consider removing some bills to get under the $200.00 limit.";
     }
     
-    // Display message
     element.innerHTML = message;
     element.style.display = 'block';
 }
 
-// Format number as currency
 function formatCurrency(amount) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -118,23 +116,199 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
-// Clear inputs when page loads
+function resetRegister(registerNum) {
+    const inputPrefix = `r${registerNum}-`;
+    
+    denominations.forEach(denomValue => {
+        const inputIdSuffix = denominationToId[denomValue];
+        const inputId = `${inputPrefix}${inputIdSuffix}`;
+        
+        const input = document.getElementById(inputId);
+        if (input) {
+            input.value = '';
+        }
+    });
+    
+    document.getElementById(`total-r${registerNum}`).textContent = formatCurrency(0);
+    document.getElementById(`adjustment-r${registerNum}`).style.display = 'none';
+}
+
+function copyToClipboard(registerNum) {
+    const total = document.getElementById(`total-r${registerNum}`).textContent;
+    
+    navigator.clipboard.writeText(total)
+        .then(() => {
+            const copyBtn = document.querySelector(`#register${registerNum} .button-row .action-btn:last-child`);
+            copyBtn.innerHTML = '✓';
+            
+            setTimeout(() => {
+                copyBtn.innerHTML = '📋';
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy text: ', err);
+            alert('Failed to copy to clipboard. Please try again.');
+        });
+}
+
+function printRegisters() {
+    const printWindow = window.open('', '_blank');
+    
+    const total1 = document.getElementById('total-r1').textContent;
+    const total2 = document.getElementById('total-r2').textContent;
+    
+    let printContent = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Cash Register Report</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+            }
+            h1 {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .print-container {
+                display: flex;
+                justify-content: space-between;
+            }
+            .register-column {
+                width: 48%;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 20px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .total-row {
+                font-weight: bold;
+            }
+            .date {
+                text-align: right;
+                margin-bottom: 20px;
+            }
+            @media print {
+                body {
+                    padding: 0;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Cash Register Report</h1>
+        <div class="date">Date: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}</div>
+        <div class="print-container">
+    `;
+    
+    for (let regNum = 1; regNum <= 2; regNum++) {
+        printContent += `
+        <div class="register-column">
+            <h2>Register ${regNum}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Denomination</th>
+                        <th>Count</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+        
+        let regTotal = 0;
+        denominations.forEach(denomValue => {
+            const inputId = `r${regNum}-${denominationToId[denomValue]}`;
+            const input = document.getElementById(inputId);
+            
+            if (input) {
+                const count = parseInt(input.value) || 0;
+                const value = denomValue * count;
+                regTotal += value;
+                
+                if (count > 0) {
+                    printContent += `
+                    <tr>
+                        <td>${formatCurrency(denomValue)}</td>
+                        <td>${count}</td>
+                        <td>${formatCurrency(value)}</td>
+                    </tr>
+                    `;
+                }
+            }
+        });
+        
+        printContent += `
+                <tr class="total-row">
+                    <td colspan="2">Total</td>
+                    <td>${document.getElementById(`total-r${regNum}`).textContent}</td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        `;
+    }
+    
+    printContent += `
+        </div>
+    </body>
+    </html>
+    `;
+    
+    printWindow.document.open();
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    
+    printWindow.onload = function() {
+        printWindow.print();
+    };
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const themeBtn = document.getElementById('theme-toggle');
+    
+    isDarkMode = !isDarkMode;
+    
+    if (isDarkMode) {
+        body.classList.remove('light-mode');
+        themeBtn.innerHTML = '☀️';
+        themeBtn.title = 'Switch to Light Mode';
+    } else {
+        body.classList.add('light-mode');
+        themeBtn.innerHTML = '🌙';
+        themeBtn.title = 'Switch to Dark Mode';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Set all inputs to empty or 0
     const inputs = document.querySelectorAll('.denomination-input');
     inputs.forEach(input => {
         input.value = '';
     });
     
-    // Initialize result displays
     document.getElementById('total-r1').textContent = formatCurrency(0);
     document.getElementById('total-r2').textContent = formatCurrency(0);
+    
+    // Add event listeners
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    document.getElementById('print-btn').addEventListener('click', printRegisters);
 });
 
-// Add input validation to ensure only numbers
 document.addEventListener('input', function(e) {
     if (e.target.classList.contains('denomination-input')) {
-        // Remove non-numeric characters
         e.target.value = e.target.value.replace(/[^0-9]/g, '');
     }
 });
