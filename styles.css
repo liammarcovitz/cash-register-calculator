@@ -11,6 +11,13 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.modal {
+    display: none !important; /* Force hide until explicitly shown */
+}
+.modal.active {
+    display: block !important;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
