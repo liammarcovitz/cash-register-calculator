@@ -71,14 +71,6 @@ A sleek, user-friendly cash register calculator web application built with vanil
   - Added status indicators for quick visual reference
   - Created a more robust theme system
 
-## Future Plans
-
-- User accounts for saving multiple register configurations
-- CSV export functionality for record-keeping
-- Historical tracking of register balances
-- Multiple currency support
-- Custom denomination configuration
-
 ## Installation & Setup
 
 1. Visit the [live website](https://liammarcovitz.github.io/cash-register-calculator) or:
