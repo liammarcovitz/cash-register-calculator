@@ -30,6 +30,29 @@ body.light-mode h1 {
     color: #cc0000;
 }
 
+.version-tag {
+    font-size: 0.6em;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    position: relative;
+    top: -0.5em;
+    margin-left: 5px;
+    animation: colorChange 6s infinite linear;
+    background-color: rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes colorChange {
+    0% { color: #ff4444; }
+    16.67% { color: #ffaa00; }
+    33.33% { color: #88cc00; }
+    50% { color: #00ccff; }
+    66.67% { color: #aa66cc; }
+    83.33% { color: #ff66aa; }
+    100% { color: #ff4444; }
+}
+
 body.light-mode .register-column {
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
@@ -106,6 +129,11 @@ h1 {
 
 body.light-mode .author-credit {
     color: #666666;
+}
+
+body.light-mode .version-tag {
+    background-color: rgba(204, 0, 0, 0.1);
+    text-shadow: 0 0 5px rgba(204, 0, 0, 0.3);
 }
 
 .utility-buttons {
@@ -240,9 +268,22 @@ label {
     margin-top: 10px;
     padding: 10px;
     border-radius: 4px;
-    background-color: rgba(255, 0, 0, 0.1);
     line-height: 1.4;
     display: none;
+}
+
+.status-message {
+    font-weight: 500;
+    padding: 5px 0;
+    font-size: 0.9em;
+}
+
+.status-message.under-limit {
+    color: #4CAF50;
+}
+
+.status-message.over-limit {
+    color: #f44336;
 }
 
 @media (max-width: 768px) {
@@ -262,4 +303,258 @@ label {
     header {
         flex-direction: column;
     }
+}
+
+.edit-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0 5px;
+    vertical-align: middle;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.edit-btn:hover {
+    opacity: 1;
+}
+
+#limit-input-container {
+    display: none;
+    margin: 10px 0;
+}
+
+#limit-input {
+    width: 100px;
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+}
+
+body.light-mode #limit-input {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.limit-adjust-btn {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.limit-adjust-btn:hover {
+    background-color: #555;
+}
+
+body.light-mode .limit-adjust-btn {
+    background-color: #ddd;
+    color: #333;
+}
+
+body.light-mode .limit-adjust-btn:hover {
+    background-color: #ccc;
+}
+
+.limit-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.save-btn:hover {
+    background-color: #45a049;
+}
+
+.cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #d32f2f;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #2a2a2a;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 85%;
+    max-width: 600px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    animation: modalFadeIn 0.3s;
+    border-left: 4px solid #ff0000;
+}
+
+body.light-mode .modal-content {
+    background-color: #f8f8f8;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-left: 4px solid #cc0000;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #888;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #ff4444;
+}
+
+.modal-options {
+    margin: 25px 0;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-buttons .action-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: normal;
+    border: none;
+    margin: 0 5px;
+    min-width: 100px;
+    font-size: 14px;
+}
+
+.modal-buttons .action-btn:first-child {
+    background-color: #ff4444;
+    color: white;
+}
+
+.modal-buttons .action-btn:last-child {
+    background-color: #444;
+    color: white;
+}
+
+body.light-mode .modal-buttons .action-btn:first-child {
+    background-color: #ff4444;
+    color: white;
+}
+
+body.light-mode .modal-buttons .action-btn:last-child {
+    background-color: #ddd;
+    color: #333;
+}
+
+.reset-btn {
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 6px 12px;
+    font-weight: normal;
+    min-width: auto;
+    width: auto;
+}
+
+.modal-options {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.modal-options select {
+    margin-left: 10px;
+    padding: 8px;
+    background-color: #3a3a3a;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+body.light-mode .modal-options select {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.modal-message {
+    margin-top: 20px;
+    line-height: 1.6;
+    padding: 15px;
+    background-color: rgba(255, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+body.light-mode .modal-message {
+    background-color: rgba(204, 0, 0, 0.1);
+}
+
+.modal h2 {
+    margin-bottom: 10px;
+    text-align: left;
+    border-bottom: none;
+}
+
+.modal-message em {
+    color: #ff9999;
+    font-style: italic;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+body.light-mode .modal-message em {
+    color: #cc0000;
+}
+
+.show-suggestions-btn {
+    margin-top: 10px;
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.show-suggestions-btn:hover {
+    background-color: #0069d9;
 }

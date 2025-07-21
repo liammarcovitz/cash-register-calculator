@@ -11,7 +11,7 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <h1>Cash Register Calculator <span class="author-credit">by Liam Marcovitz</span></h1>
+                <h1>Cash Register Calculator <span class="version-tag">V2</span> <span class="author-credit">by Liam Marcovitz</span></h1>
             </div>
             <div class="utility-buttons">
                 <button id="theme-toggle" class="action-btn" title="Toggle Light/Dark Mode">☀️</button>
@@ -136,6 +136,33 @@
                 </div>
             </div>
         </main>
+    </div>
+    
+    <div id="adjustment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Register Total</h2>
+            <div class="modal-options">
+                <label for="adjustment-option">Suggestion Type:</label>
+                <select id="adjustment-option">
+                    <option value="maxCoin1">Default (recommended)</option>
+                    <option value="noCoin">Bills only (no coins)</option>
+                    <option value="minCount">Fewest denominations</option>
+                </select>
+            </div>
+            <div id="modal-adjustment-message" class="modal-message"></div>
+        </div>
+    </div>
+    
+    <div id="reset-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <h2>Confirm Reset</h2>
+            <p>Are you sure you want to clear all values? This action cannot be undone.</p>
+            <div class="modal-buttons">
+                <button id="cancel-reset-btn" class="action-btn reset-btn">Cancel</button>
+                <button id="confirm-reset-btn" class="action-btn reset-btn">Yes, Reset</button>
+            </div>
+        </div>
     </div>
     
     <script src="script.js"></script>

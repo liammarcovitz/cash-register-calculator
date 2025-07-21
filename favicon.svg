@@ -1,21 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Calculator body -->
   <rect x="12" y="8" width="40" height="48" rx="4" fill="#000000" stroke="#ff0000" stroke-width="2"/>
   
-  <!-- Calculator display -->
   <rect x="16" y="12" width="32" height="10" rx="2" fill="#333333" stroke="#ff0000" stroke-width="1"/>
   
-  <!-- Calculator buttons - Row 1 -->
   <rect x="16" y="26" width="8" height="8" rx="1" fill="#ff0000"/>
   <rect x="28" y="26" width="8" height="8" rx="1" fill="#ff0000"/>
   <rect x="40" y="26" width="8" height="8" rx="1" fill="#ff0000"/>
   
-  <!-- Calculator buttons - Row 2 -->
   <rect x="16" y="36" width="8" height="8" rx="1" fill="#ff0000"/>
   <rect x="28" y="36" width="8" height="8" rx="1" fill="#ff0000"/>
   <rect x="40" y="36" width="8" height="8" rx="1" fill="#ff0000"/>
   
-  <!-- Calculator buttons - Row 3 -->
   <rect x="16" y="46" width="8" height="8" rx="1" fill="#ff0000"/>
   <rect x="28" y="46" width="8" height="8" rx="1" fill="#ff0000"/>
   <rect x="40" y="46" width="20" height="8" rx="1" fill="#ff0000" transform="translate(56, 46) scale(0.5, 1) translate(-56, -46)"/>
